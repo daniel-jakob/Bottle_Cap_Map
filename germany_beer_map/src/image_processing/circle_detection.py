@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-def detect_circles(processed_image, picutre_out_filename=None, txt_out_filename=None):
+def detect_circles(processed_image, picture_out_filename=None, txt_out_filename=None):
 	# Check if processed_image is a string (filename)
 	if isinstance(processed_image, str):
 		# Determine the file extension
@@ -37,7 +37,7 @@ def detect_circles(processed_image, picutre_out_filename=None, txt_out_filename=
 				np.savetxt(txt_out_filename, detected_circles, fmt='%d', delimiter=', ')
 
 			# print(detected_circles)
-		if picutre_out_filename:
+		if picture_out_filename:
 			img = cv2.imread("data/images/map.jpg", cv2.IMREAD_COLOR)
 			for pt in detected_circles:
 				a, b, r = pt[0], pt[1], pt[2]
@@ -48,6 +48,6 @@ def detect_circles(processed_image, picutre_out_filename=None, txt_out_filename=
 				cv2.circle(img, (a, b), 1, (0, 0, 255), 3)
 				cv2.imshow("Detected Circle", img)
 
-				cv2.imwrite(picutre_out_filename, img)
+				cv2.imwrite(picture_out_filename, img)
 
 	return detected_circles
