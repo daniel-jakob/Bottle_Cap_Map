@@ -11,7 +11,7 @@ from user_interface.draw_contours import *
 
 # Create a single instance of ImageProcessor
 preprocessor_photo = ImageProcessor("germany_beer_map/data/images/map.jpg")
-preprocessor_ref = ImageProcessor("data/images/map_ref.jpg")
+preprocessor_ref = ImageProcessor("germany_beer_map/data/images/map_ref.jpg")
 
 
 
