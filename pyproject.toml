@@ -1,3 +1,17 @@
 [tool.pyright]
-"venvPath": "/home/daniel/anaconda3/envs",
-"venv": "germany_beer_map",
+"venvPath" = "/home/daniel/anaconda3/envs"
+"venv" = "germany_beer_map"
+
+[project]
+name = "germany_beer_map"
+version = "1.0.0"
+author = "Daniel Jakob"
+readme= "README.md"
+requires-python = ">=3.10.0"
+
+[project.urls]
+Source = "https://github.com/daniel-jakob/Bottle_Cap_Map"
+
+dependencies = [
+    "stringcase ~=1.2.0",
+]
