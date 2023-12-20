@@ -44,5 +44,15 @@ rotation_angle = find_optimal_rotation(contour, ref_contour_scaled_aligned)
 
 ref_contour_scaled_aligned_rotated = rotate_contour_around_centroid(ref_contour_scaled_aligned, rotation_angle)
 
+# draw_contours(ref_contour_scaled_aligned)
+
+contour_grid_points = grid_gen(contour)
+contour_refined_grid = adaptive_grid(contour_grid_points, contour)
+ref_contour_grid_points = grid_gen(ref_contour_scaled_aligned_rotated)
+ref_contour_refined_grid = adaptive_grid(ref_contour_grid_points, ref_contour_scaled_aligned_rotated)
+tps_transform(contour_refined_grid, ref_contour_refined_grid, contour, ref_contour_scaled_aligned_rotated)
+
+
+draw_contours(ref_contour_scaled_aligned_rotated, ref_contour_scaled_aligned, contour)
 
 
