@@ -10,6 +10,8 @@ def detect_circles(processed_image, picture_out_filename=None, txt_out_filename=
 		if file_extension == 'txt':
 			# Read the numpy array from the .txt file
 			processed_image = np.loadtxt(processed_image, dtype=int)
+			# Normalize the image to 8-bit
+			processed_image = cv2.normalize(processed_image, None, 0, 255, cv2.NORM_MINMAX).astype(np.uint8)
 		elif file_extension in ['jpg', 'jpeg', 'png']:
 			# Read the image using OpenCV
 			processed_image = cv2.imread(processed_image, cv2.IMREAD_GRAYSCALE)
@@ -33,13 +35,26 @@ def detect_circles(processed_image, picture_out_filename=None, txt_out_filename=
 
 		detected_circles = detected_circles[0, :]
 
+		# Filter out circles whose center is within another larger circle
+		filtered_circles = []
+		for i in range(len(detected_circles)):
+			x1, y1, r1 = map(float, detected_circles[i])
+			keep = True
+			for j in range(len(detected_circles)):
+				if i != j:
+					x2, y2, r2 = map(float, detected_circles[j])
+					if np.sqrt((x2 - x1)**2 + (y2 - y1)**2) < r2 and r1 < r2:
+						keep = False
+						break
+			if keep:
+				filtered_circles.append(detected_circles[i])
+
 		if txt_out_filename:
 				np.savetxt(txt_out_filename, detected_circles, fmt='%d', delimiter=', ')
 
-			# print(detected_circles)
 		if picture_out_filename:
 			img = cv2.imread("germany_beer_map/data/images/map.jpg", cv2.IMREAD_COLOR)
-			for pt in detected_circles:
+			for pt in filtered_circles:
 				a, b, r = pt[0], pt[1], pt[2]
 				# Draw the circumference of the circle.
 				cv2.circle(img, (a, b), r, (0, 255, 0), 2)
@@ -50,4 +65,4 @@ def detect_circles(processed_image, picture_out_filename=None, txt_out_filename=
 
 				cv2.imwrite(picture_out_filename, img)
 
-	return detected_circles
+	return filtered_circles
