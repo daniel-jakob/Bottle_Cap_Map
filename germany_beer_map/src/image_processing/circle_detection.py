@@ -38,7 +38,7 @@ def detect_circles(processed_image, picture_out_filename=None, txt_out_filename=
 
 			# print(detected_circles)
 		if picture_out_filename:
-			img = cv2.imread("data/images/map.jpg", cv2.IMREAD_COLOR)
+			img = cv2.imread("germany_beer_map/data/images/map.jpg", cv2.IMREAD_COLOR)
 			for pt in detected_circles:
 				a, b, r = pt[0], pt[1], pt[2]
 				# Draw the circumference of the circle.
