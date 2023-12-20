@@ -2,9 +2,17 @@ import cv2
 import numpy as np
 
 def detect_circles(processed_image, picutre_out_filename=None, txt_out_filename=None):
-	# If processed_image is a string, assume it's a filename and read the numpy array from the file
+	# Check if processed_image is a string (filename)
 	if isinstance(processed_image, str):
-		processed_image = np.loadtxt(processed_image, dtype=int)
+		# Determine the file extension
+		file_extension = processed_image.split('.')[-1].lower()
+
+		if file_extension == 'txt':
+			# Read the numpy array from the .txt file
+			processed_image = np.loadtxt(processed_image, dtype=int)
+		elif file_extension in ['jpg', 'jpeg', 'png']:
+			# Read the image using OpenCV
+			processed_image = cv2.imread(processed_image, cv2.IMREAD_GRAYSCALE)
 
 	# Apply Hough transform on the blurred image.
 	detected_circles = cv2.HoughCircles(

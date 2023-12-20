@@ -1,7 +1,6 @@
 import numpy as np
 from scipy.interpolate import interp1d
 from scipy.ndimage import rotate
-from user_interface.draw_contours import *
 
 def calculate_scale_factor(contour1, contour2):
 
@@ -48,7 +47,7 @@ def rotate_contour_around_centroid(contour, angle_radians):
 								[np.sin(angle_radians), np.cos(angle_radians)]])
 
 	# Rotate the translated contour
-	rotated_contour = np.dot(contour - centroid, rotation_matrix)
+	rotated_contour = np.dot(contour - centroid, rotation_matrix).astype(int)
 
 	# Translate back to the original centroid
 	rotated_contour += centroid
@@ -64,13 +63,11 @@ def find_optimal_rotation(contour1, contour2):
 
 
 	for angle in np.arange(angle_range[0], angle_range[1], angle_step):
-		print(angle*180/np.pi)
 		# Rotate the contour around its centroid
 		rotated_contour = rotate_contour_around_centroid(contour2, angle)
 
 		# Calculate the Mean Squared Error
 		mse = calculate_mse(contour1, rotated_contour)
-		print("mse",mse)
 
 		# Update best rotation if the current MSE is smaller
 		if mse < min_mse:
