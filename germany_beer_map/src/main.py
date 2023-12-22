@@ -45,9 +45,9 @@ rotation_angle = find_optimal_rotation(ref_contour_scaled_aligned, contour)
 
 contour_rotated = rotate_contour_around_centroid(contour, -rotation_angle)
 
-two_dim_interp(ref_contour_scaled_aligned, circles)
+two_dim_interp(circles, True,  ref_contour_scaled_aligned)
 
-# exit(0)
+exit(0)
 
 # draw_contours(ref_contour_scaled_aligned)
 
