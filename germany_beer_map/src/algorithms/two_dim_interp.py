@@ -114,4 +114,4 @@ def two_dim_interp(centres_of_holes, plotting=False, ref_contour=None, mapping="
 
 		plt.show()
 
-	return contour_interp_longitude, contour_interp_latitude
+	return circles_interp_longitude, circles_interp_latitude
