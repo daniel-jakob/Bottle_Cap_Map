@@ -1,7 +1,7 @@
 import cv2
 import numpy as np
 
-def draw_contours(*contours, img_read='data/images/map.jpg'):
+def draw_contours(*contours, img_read='germany_beer_map/data/images/map.jpg'):
     # Read the image
     img = cv2.imread(img_read, cv2.IMREAD_COLOR)
 

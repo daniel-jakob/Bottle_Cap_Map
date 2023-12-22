@@ -7,6 +7,7 @@ from image_processing.circle_detection import detect_circles
 from image_processing.map_outline_detection import detect_outline
 from algorithms.scaling import *
 from algorithms.tps_transform import *
+from algorithms.two_dim_interp import *
 from user_interface.draw_contours import *
 
 # Create a single instance of ImageProcessor
@@ -39,20 +40,24 @@ ref_contour_scaled_aligned = translate_contour(contour, ref_contour_scaled).resh
 
 
 
-rotation_angle = find_optimal_rotation(contour, ref_contour_scaled_aligned)
+rotation_angle = find_optimal_rotation(ref_contour_scaled_aligned, contour)
 # print(rotation_angle*180/3.16259)
 
-ref_contour_scaled_aligned_rotated = rotate_contour_around_centroid(ref_contour_scaled_aligned, rotation_angle)
+contour_rotated = rotate_contour_around_centroid(contour, -rotation_angle)
+
+two_dim_interp(circles, True,  ref_contour_scaled_aligned)
+
+exit(0)
 
 # draw_contours(ref_contour_scaled_aligned)
 
 contour_grid_points = grid_gen(contour)
 contour_refined_grid = adaptive_grid(contour_grid_points, contour)
-ref_contour_grid_points = grid_gen(ref_contour_scaled_aligned_rotated)
-ref_contour_refined_grid = adaptive_grid(ref_contour_grid_points, ref_contour_scaled_aligned_rotated)
-tps_transform(contour_refined_grid, ref_contour_refined_grid, contour, ref_contour_scaled_aligned_rotated)
+ref_contour_grid_points = grid_gen(contour_rotated)
+ref_contour_refined_grid = adaptive_grid(ref_contour_grid_points, contour_rotated)
+#tps_transform(contour_refined_grid, ref_contour_refined_grid, contour, contour_rotated)
 
 
-draw_contours(ref_contour_scaled_aligned_rotated, ref_contour_scaled_aligned, contour)
+draw_contours(contour_rotated, ref_contour_scaled_aligned, contour)
 
 
