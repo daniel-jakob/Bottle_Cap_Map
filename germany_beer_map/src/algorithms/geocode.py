@@ -18,6 +18,6 @@ def get_geocoordinates(address):
     data = response.json()
 
     if data:
-        return float(data[0]['lat']), float(data[0]['lon'])
+        return float(data[0]['lon']), float(data[0]['lat'])
 
     return None
