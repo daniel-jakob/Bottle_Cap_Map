@@ -1,5 +1,6 @@
 # main.py
 import cv2
+import csv
 
 from image_processing.image_preprocessor import ImageProcessor
 
@@ -9,6 +10,7 @@ from algorithms.scaling import *
 from algorithms.tps_transform import *
 from algorithms.two_dim_interp import *
 from user_interface.draw_contours import *
+from algorithms.geocode import get_geocoordinates
 
 # Create a single instance of ImageProcessor
 preprocessor_photo = ImageProcessor("germany_beer_map/data/images/map.jpg")
@@ -45,8 +47,24 @@ rotation_angle = find_optimal_rotation(ref_contour_scaled_aligned, contour)
 
 contour_rotated = rotate_contour_around_centroid(contour, -rotation_angle)
 
-two_dim_interp(circles, True,  ref_contour_scaled_aligned)
+circles_coords = two_dim_interp(circles, True,  ref_contour_scaled_aligned)
 
+print(circles_coords)
+
+
+# Read in bottle_caps.csv
+bottle_caps = []
+with open("germany_beer_map/data/mapping/bottle_caps.csv", 'r') as f:
+    reader = csv.reader(f, delimiter=',')
+    next(reader)  # Skip the header
+    for row in reader:
+        bottle_caps.append(row)
+
+bottle_cap_coords = []
+for i in range(len(bottle_caps)):
+	bottle_cap = get_geocoordinates(bottle_caps[i][2])
+	bottle_cap_coords.append(bottle_cap)
+print(np.array(bottle_cap_coords))
 exit(0)
 
 # draw_contours(ref_contour_scaled_aligned)
