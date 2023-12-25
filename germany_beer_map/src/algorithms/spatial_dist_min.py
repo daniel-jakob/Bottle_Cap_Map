@@ -24,7 +24,7 @@ def haversine(lat1, lon1, lat2, lon2):
 
 	return distance
 
-def spatial_dist_min(points_fixed, points_movable):
+def spatial_dist_min(points_fixed, points_movable, plotting=False):
 	"""
 	spatial_dist_min, calculates the optimal mapping between two sets of geographical points to minimize the total Euclidean distance. The first set of points, referred to as the reference set, represents fixed locations. The second set of points, which will be mapped to the reference set, represents movable locations. The function uses the Hungarian Algorithm to find the optimal one-to-one correspondence between the two sets that results in the smallest cumulative distance. The output is a list of index pairs representing the optimal assignments and the minimum total distance.
 
@@ -43,7 +43,7 @@ def spatial_dist_min(points_fixed, points_movable):
 		padding = np.zeros((len(points_fixed), len(points_fixed) - len(points_movable)))
 		cost_matrix = np.hstack((cost_matrix, padding))
 
-	# Use the Hungarian Algorithm to find the optimal assignment
+	# Use the Hungarian Algorithm to find the optimal assignment (specifically, the Jonker-Volgenant variant of the algorithm)
 	row_ind, col_ind = linear_sum_assignment(cost_matrix)
 
 	# Convert cost_matrix to numpy array for advanced indexing
@@ -53,7 +53,9 @@ def spatial_dist_min(points_fixed, points_movable):
 	min_total_distance = cost_matrix_np[row_ind, col_ind].sum()
 
 	# Return the optimal assignment and the minimum total distance
-	visualize_cost_matrix(cost_matrix_np, row_ind, col_ind)
+	if plotting:
+		visualize_cost_matrix(cost_matrix_np, row_ind, col_ind)
+
 	return list(zip(row_ind, col_ind)), min_total_distance
 
 
