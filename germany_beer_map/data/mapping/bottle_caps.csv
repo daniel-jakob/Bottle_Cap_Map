@@ -1,9 +1,13 @@
-name, brand, brewery_address
-Störtebeker, Störtebeker, "Greifswalder Chaussee 84, 18439 Stralsund, Germany"
-Veltins Pilsner, Veltins, "Brauereistrasse 2, 59872 Meschede-Grevenstein, Germany"
-Grevensteiner, Veltins, "Brauereistrasse 2, 59872 Meschede-Grevenstein, Germany"
-Krombacher Pils, Krombacher, "Hagener Straße 261, 57223 Kreuztal, Germany"
-Tegernseer Bier, Herzoglich Bayerisches Brauhaus Tegernsee, "Schlossplatz 1, 83684 Tegernsee, Germany"
-Franziskaner Weissbier, Spaten-Franziskaner-Bräu, "Marsstraße 46-48, 80335 München, Germany"
-Erdinger Dunkel, Erdinger Weissbräu, "Lange Zeile 1-3, 85435 Erding, Germany"
-Früh Kolsch, Cölner Hofbräu Früh, "Robert-Bosch-Straße 15-17, 50769 Köln, Germany"
+name, brand, brewery_address, image
+Störtebeker, Störtebeker, "Greifswalder Chaussee 84, 18439 Stralsund, Germany", stoertebeker.png
+Veltins Pilsner, Veltins, "Brauereistrasse 2, 59872 Meschede-Grevenstein, Germany", veltins.png
+Grevensteiner Dunkles, Veltins, "Brauereistrasse 2, 59872 Meschede-Grevenstein, Germany", grevensteiner.png
+Krombacher Pils, Krombacher, "Hagener Straße 261, 57223 Kreuztal, Germany", krombacher.png
+Tegernseer Bier, Herzoglich Bayerisches Brauhaus Tegernsee, "Schlossplatz 1, 83684 Tegernsee, Germany", tegernseer.png
+Franziskaner Weissbier, Spaten-Franziskaner-Bräu, "Marsstraße 46-48, 80335 München, Germany", franziskaner.png
+Erdinger Dunkel, Erdinger Weissbräu, "Lange Zeile 1-3, 85435 Erding, Germany", erdinger.png
+Früh Kolsch, Cölner Hofbräu Früh, "Robert-Bosch-Straße 15-17, 50769 Köln, Germany", frueh.png
+Bamberger Schwärzla, Klosterbräu Bamberg, "Obere Mühlbrücke 1, 96049 Bamberg, Germany", klosterbraeu.png
+Strecks Bio Helles, Strecks Brauhaus,"Ludwig-Jahn-Straße 11, 97645 Ostheim vor der Rhön, Germany", strecks.png
+Bayreuther Hell, Bayreuther Bierbrauerei, "Kulmbacher Straße 1, 95445 Bayreuth, Germany", bayreuther.png
+Paulaner Hefe-Weissbier, Paulaner Brauerei, "Hochstraße 75, 81541 München, Germany", paulaner.png
