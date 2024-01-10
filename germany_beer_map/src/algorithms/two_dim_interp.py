@@ -16,13 +16,13 @@ def two_dim_interp(centres_of_holes, plotting=False, ref_contour=None, mapping="
 	# Convert to signed int16 to avoid errors when negating y-values
 	centres_of_holes_y = centres_of_holes[:, 1].astype(np.int16)
 
-	print(centres_of_holes_x)
-	print(centres_of_holes_y)
+	# print(centres_of_holes_x)
+	# print(centres_of_holes_y)
 
 	distinctive_points_x = mapping[:, 0]
 	distinctive_points_y = mapping[:, 1]
-	distinctive_points_longitude = mapping[:, 3]
 	distinctive_points_latitude = mapping[:, 2]
+	distinctive_points_longitude = mapping[:, 3]
 
 	circles_interp_longitude = griddata(
 		(distinctive_points_x, distinctive_points_y),
@@ -38,7 +38,9 @@ def two_dim_interp(centres_of_holes, plotting=False, ref_contour=None, mapping="
 		method='cubic'
 	)
 
-	print(circles_interp_latitude)
+	# print(circles_interp_latitude)
+
+	circles_interp = np.column_stack((circles_interp_longitude, circles_interp_latitude))
 
 	if plotting:
 		reference_contour_x = ref_contour[:, 0]
@@ -114,4 +116,4 @@ def two_dim_interp(centres_of_holes, plotting=False, ref_contour=None, mapping="
 
 		plt.show()
 
-	return circles_interp_longitude, circles_interp_latitude
+	return circles_interp
