@@ -11,6 +11,7 @@ from algorithms.two_dim_interp import *
 from user_interface.draw_contours import *
 from algorithms.geocode import *
 from algorithms.spatial_dist_min import spatial_dist_min
+from user_interface.draw_caps_on_map import draw_caps_on_map
 
 # Create a single instance of ImageProcessor
 preprocessor_photo = ImageProcessor("germany_beer_map/data/images/map.jpg")
@@ -44,7 +45,8 @@ circles_coords = two_dim_interp(circles, True,  ref_contour_scaled_aligned)
 bottle_cap_coords = convert_address_to_coords("germany_beer_map/data/mapping/bottle_caps.csv")
 
 placements, min_dist = spatial_dist_min(bottle_cap_coords, circles_coords, plotting=True)
-print(placements)
+
+draw_caps_on_map("germany_beer_map/data/mapping/bottle_caps.csv", placements, circles, "germany_beer_map/data/images/map.jpg")
 exit(0)
 
 # draw_contours(ref_contour_scaled_aligned)
