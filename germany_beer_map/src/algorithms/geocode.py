@@ -1,31 +1,32 @@
 import requests
 import numpy as np
+from utils.csv_reader import read_csv_file
 
 def get_geocoordinates(address):
-    """
-    Get the geographic coordinates of an address from OpenStreetMap's Nominatim service.
+	"""
+	Get the geographic coordinates of an address from OpenStreetMap's Nominatim service.
 
-    Parameters:
-    address (str): The address to geocode.
+	Parameters:
+	address (str): The address to geocode.
 
-    Returns:
-    tuple: The latitude and longitude of the address, or None if the geocoding request failed.
-    """
-    response = requests.get(
-        'https://nominatim.openstreetmap.org/search',
-        params={'q': address, 'format': 'json'}
-    )
+	Returns:
+	tuple: The latitude and longitude of the address, or None if the geocoding request failed.
+	"""
+	response = requests.get(
+		'https://nominatim.openstreetmap.org/search',
+		params={'q': address, 'format': 'json'}
+	)
 
-    data = response.json()
+	data = response.json()
 
-    if data:
-        return float(data[0]['lon']), float(data[0]['lat'])
+	if data:
+		return float(data[0]['lon']), float(data[0]['lat'])
 
-    return None
+	return None
 
 def convert_address_to_coords(csvfile):
-    # Read in bottle_caps.csv
-	bottle_caps = np.genfromtxt(csvfile, delimiter=",", dtype=str, skip_header=1)
+	# Read in bottle_caps.csv
+	bottle_caps = read_csv_file(csvfile)
 
 	bottle_cap_coords = []
 
@@ -33,7 +34,8 @@ def convert_address_to_coords(csvfile):
 
 	# Get the geocoordinates of each bottle cap
 	for i in range(len(bottle_caps)):
-		bottle_cap = get_geocoordinates(bottle_caps[i][2])
+		bottle_cap = get_geocoordinates(bottle_caps[i]['brewery_address'])
+		print(bottle_caps[i]['brewery_address'])
 		bottle_cap_coords.append(bottle_cap)
 
 	return bottle_cap_coords
