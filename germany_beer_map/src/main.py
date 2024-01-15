@@ -1,6 +1,7 @@
 # main.py
 import cv2
 
+# Import necessary project modules
 from image_processing.image_preprocessor import ImageProcessor
 from image_processing.circle_detection import detect_circles
 from image_processing.map_outline_detection import detect_outline
@@ -29,39 +30,34 @@ contour = detect_outline(preprocessor_photo.processed_image)
 # Apply contour detection to a reference image of Germany outline
 ref_contour = detect_outline(preprocessor_ref.processed_image)
 
-# Resample the contours to smaller AND equal length
+# Resample the contours to smaller AND equal array length
 contour = resample_contour(contour)
 ref_contour = resample_contour(ref_contour)
 
 
-# Scale the contour and ref_contour and lay one atop the other for comparison
+# Scale, align and rotate the contour and ref_contour and lay one atop the other for comparison
 scale_factor = calculate_scale_factor(contour, ref_contour)
 ref_contour_scaled = scale_contour(ref_contour, scale_factor) # sqrt of scale factor
-
 ref_contour_scaled_aligned = translate_contour(contour, ref_contour_scaled).reshape(-1, 2)
-
 rotation_angle = find_optimal_rotation(ref_contour_scaled_aligned, contour)
-
 contour_rotated = rotate_contour_around_centroid(contour, -rotation_angle)
 
-circles_coords = two_dim_interp(circles, True,  ref_contour_scaled_aligned)
+draw_contours(ref_contour_scaled_aligned)
+draw_contours(contour_rotated, ref_contour_scaled_aligned, contour)
 
+# Find the geo-coordinates of the circle centres and bottle caps associated breweries
+circles_coords = two_dim_interp(circles, True,  ref_contour_scaled_aligned)
 bottle_cap_coords = convert_address_to_coords(bottle_cap_file)
 
+# Find the optimal placement of bottle caps on the map
 placements, min_dist = spatial_dist_min(bottle_cap_coords, circles_coords, plotting=True)
 
+# Draw the bottle caps on the map and save the image
 draw_caps_on_map(bottle_cap_file, placements, circles, map_file)
-# exit(0)
 
-draw_contours(ref_contour_scaled_aligned)
 
 # contour_grid_points = grid_gen(contour)
 # contour_refined_grid = adaptive_grid(contour_grid_points, contour)
 # ref_contour_grid_points = grid_gen(contour_rotated)
 # ref_contour_refined_grid = adaptive_grid(ref_contour_grid_points, contour_rotated)
 #tps_transform(contour_refined_grid, ref_contour_refined_grid, contour, contour_rotated)
-
-
-draw_contours(contour_rotated, ref_contour_scaled_aligned, contour)
-
-
