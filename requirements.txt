@@ -4,6 +4,4 @@ opencv-python
 SciPy
 requests
 pillow
-os
-sys
 pytest
