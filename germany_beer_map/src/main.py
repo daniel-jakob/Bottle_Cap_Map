@@ -2,7 +2,6 @@
 import cv2
 
 from image_processing.image_preprocessor import ImageProcessor
-
 from image_processing.circle_detection import detect_circles
 from image_processing.map_outline_detection import detect_outline
 from algorithms.scaling import *
@@ -13,9 +12,14 @@ from algorithms.geocode import *
 from algorithms.spatial_dist_min import spatial_dist_min
 from user_interface.draw_caps_on_map import draw_caps_on_map
 
+# vairables for file locations
+map_file = "germany_beer_map/data/images/map.jpg"
+ref_map_file = "germany_beer_map/data/images/map_ref.jpg"
+bottle_cap_file = "germany_beer_map/data/mapping/bottle_caps.csv"
+
 # Create a single instance of ImageProcessor
-preprocessor_photo = ImageProcessor("germany_beer_map/data/images/map.jpg")
-preprocessor_ref = ImageProcessor("germany_beer_map/data/images/map_ref.jpg")
+preprocessor_photo = ImageProcessor(map_file)
+preprocessor_ref = ImageProcessor(ref_map_file)
 
 
 # Use the processed image in both feature detection modules
@@ -42,19 +46,19 @@ contour_rotated = rotate_contour_around_centroid(contour, -rotation_angle)
 
 circles_coords = two_dim_interp(circles, True,  ref_contour_scaled_aligned)
 
-bottle_cap_coords = convert_address_to_coords("germany_beer_map/data/mapping/bottle_caps.csv")
+bottle_cap_coords = convert_address_to_coords(bottle_cap_file)
 
 placements, min_dist = spatial_dist_min(bottle_cap_coords, circles_coords, plotting=True)
 
-draw_caps_on_map("germany_beer_map/data/mapping/bottle_caps.csv", placements, circles, "germany_beer_map/data/images/map.jpg")
-exit(0)
+draw_caps_on_map(bottle_cap_file, placements, circles, map_file)
+# exit(0)
 
-# draw_contours(ref_contour_scaled_aligned)
+draw_contours(ref_contour_scaled_aligned)
 
-contour_grid_points = grid_gen(contour)
-contour_refined_grid = adaptive_grid(contour_grid_points, contour)
-ref_contour_grid_points = grid_gen(contour_rotated)
-ref_contour_refined_grid = adaptive_grid(ref_contour_grid_points, contour_rotated)
+# contour_grid_points = grid_gen(contour)
+# contour_refined_grid = adaptive_grid(contour_grid_points, contour)
+# ref_contour_grid_points = grid_gen(contour_rotated)
+# ref_contour_refined_grid = adaptive_grid(ref_contour_grid_points, contour_rotated)
 #tps_transform(contour_refined_grid, ref_contour_refined_grid, contour, contour_rotated)
 
 
