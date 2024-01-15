@@ -24,11 +24,11 @@ preprocessor_ref = ImageProcessor(ref_map_file)
 
 
 # Use the processed image in both feature detection modules
-circles = detect_circles(preprocessor_photo.processed_image)
-contour = detect_outline(preprocessor_photo.processed_image)
+circles = detect_circles(preprocessor_photo.processed_image, picture_out_filename=None, txt_out_filename=None)
+contour = detect_outline(preprocessor_photo.processed_image, icture_out_filename=None, txt_out_filename=None)
 
 # Apply contour detection to a reference image of Germany outline
-ref_contour = detect_outline(preprocessor_ref.processed_image)
+ref_contour = detect_outline(preprocessor_ref.processed_image, picture_out_filename=None, txt_out_filename=None)
 
 # Resample the contours to smaller AND equal array length
 contour = resample_contour(contour)
@@ -42,8 +42,8 @@ ref_contour_scaled_aligned = translate_contour(contour, ref_contour_scaled).resh
 rotation_angle = find_optimal_rotation(ref_contour_scaled_aligned, contour)
 contour_rotated = rotate_contour_around_centroid(contour, -rotation_angle)
 
-draw_contours(ref_contour_scaled_aligned)
-draw_contours(contour_rotated, ref_contour_scaled_aligned, contour)
+# draw_contours(ref_contour_scaled_aligned)
+# draw_contours(contour_rotated, ref_contour_scaled_aligned, contour)
 
 # Find the geo-coordinates of the circle centres and bottle caps associated breweries
 circles_coords = two_dim_interp(circles, True,  ref_contour_scaled_aligned)
