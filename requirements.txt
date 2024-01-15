@@ -3,7 +3,7 @@ numpy
 opencv-python
 SciPy
 requests
-PIL
+pillow
 os
 sys
 pytest
