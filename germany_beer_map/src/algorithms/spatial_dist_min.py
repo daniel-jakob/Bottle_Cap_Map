@@ -60,31 +60,35 @@ def spatial_dist_min(points_fixed, points_movable, plotting=False):
 
 
 def visualize_cost_matrix(cost_matrix, row_ind, col_ind):
-    # Create column and row labels
-    col_labels = ['Movable Point ' + str(i) for i in range(len(cost_matrix[0]))]
-    row_labels = ['Fixed Hole ' + str(i) for i in range(len(cost_matrix))]
+	# Create column and row labels
+	col_labels = ['Movable Point ' + str(i) for i in range(len(cost_matrix[0]))]
+	row_labels = ['Fixed Hole ' + str(i) for i in range(len(cost_matrix))]
 
-    # Convert cost matrix entries to strings with 2 decimal places
-    formatted_values = [["{:.2f}".format(val) for val in row] for row in cost_matrix]
+	# Convert cost matrix entries to strings with 2 decimal places
+	formatted_values = [["{:.2f}".format(val) for val in row] for row in cost_matrix]
 
-    # Define a scaling factor for the figure size
-    scale = 0.5
+	# Define a scaling factor for the figure size
+	scale = 0.3
 
-    # Create a new figure with width and height set to the corresponding lengths of the table
-    fig, ax = plt.subplots(figsize=(len(col_labels)*scale, len(row_labels)*scale))
+	# Create a new figure with width and height set to the corresponding lengths of the table
+	fig, ax = plt.subplots(figsize=(len(col_labels)*scale, len(row_labels)*scale))
 
-    # Hide axes
-    ax.axis('off')
+	# Hide axes
+	ax.axis('off')
 
-    # Create a table and add it to the figure
-    table = ax.table(cellText=formatted_values, colLabels=col_labels, rowLabels=row_labels, cellLoc='center', loc='center')
+	# Create a table and add it to the figure
+	table = ax.table(cellText=formatted_values, colLabels=col_labels, rowLabels=row_labels, cellLoc='center', loc='center')
 
-    # Auto adjust the width of the columns
-    table.auto_set_column_width(col=list(range(len(col_labels))))
+	# Auto adjust the width of the columns
+	table.auto_set_column_width(col=list(range(len(col_labels))))
 
-    # Highlight the cells corresponding to the optimal assignment
-    for i, j in zip(row_ind, col_ind):
-        table.get_celld()[(i+1, j)].set_facecolor('lightgreen')
+		# Set the font size
+	table.auto_set_font_size(False)
+	table.set_fontsize(8)  # Change the number to the desired font size
 
-    # Show the table
-    plt.show()
+	# Highlight the cells corresponding to the optimal assignment
+	for i, j in zip(row_ind, col_ind):
+		table.get_celld()[(i+1, j)].set_facecolor('lightgreen')
+
+	# Show the table
+	plt.show()

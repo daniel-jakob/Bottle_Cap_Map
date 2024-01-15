@@ -50,7 +50,7 @@ def detect_outline(processed_image, picture_out_filename=None, txt_out_filename=
 		# print(detected_circles)
 		if picture_out_filename:
 			# Draw the second-longest contour on a copy of the original image
-			img_with_second_longest_contour = cv2.imread('data/images/map.jpg', cv2.IMREAD_COLOR)
+			img_with_second_longest_contour = cv2.imread('germany_beer_map/data/images/map.jpg', cv2.IMREAD_COLOR)
 			cv2.drawContours(img_with_second_longest_contour, [rearranged_contour], -1, (0, 255, 0), 2)
 
 			# Display the image with the second-longest contour
