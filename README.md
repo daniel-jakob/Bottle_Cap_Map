@@ -62,7 +62,7 @@ pip install -r requirements.txt
 ### If looking to adapt for your own bottlecap map...
 
 You must take a photo of your map, ideally as similar as possible to the one I used (found in `germany_beer_map/data/images/map.jpg`). I suggest a high contrast background. Replace the aforementined file with your picture. Find a reference outline image of your country online and replace the `map_ref.jpg` file. Change the `None` `circles = detect_circles(...)` line in `main.py`
--   Optimisation algorithm (Hungarian algorithm) to minimise the spatial distance between bottle cap placement and their brewery locations.
+`<xml attrib="someVal"></xml>`{:.language-xml}
 
 ## Testing
 
