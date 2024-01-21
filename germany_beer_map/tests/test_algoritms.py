@@ -1,6 +1,12 @@
 import numpy as np
 import pytest
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
 from germany_beer_map.src.algorithms.scaling import scale_contour, calculate_centroid, translate_contour, calculate_mse
+from germany_beer_map.src.algorithms.spatial_dist_min import haversine
+from germany_beer_map.src.algorithms.geocode import convert_address_to_coords
 
 def test_scale_contour():
     contour = np.array([[1, 1], [2, 2]])
