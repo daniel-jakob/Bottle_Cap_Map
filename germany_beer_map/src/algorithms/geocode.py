@@ -1,6 +1,5 @@
 import requests
-import numpy as np
-from utils.csv_reader import read_csv_file
+from germany_beer_map.src.utils.csv_reader import read_csv_file
 
 def get_geocoordinates(address):
 	"""
