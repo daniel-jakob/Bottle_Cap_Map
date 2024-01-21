@@ -4,7 +4,8 @@ from scipy.ndimage import rotate
 
 def calculate_scale_factor(contour1, contour2):
 
-	# Use NumPy functions to calculate the area
+	# Use NumPy functions to calculate the area of each contour
+	# Using the Shoelace formula https://en.wikipedia.org/wiki/Shoelace_formula
 	area1 = 0.5 * np.abs(np.sum(contour1[:-1, 0] * contour1[1:, 1] - contour1[1:, 0] * contour1[:-1, 1]))
 	area2 = 0.5 * np.abs(np.sum(contour2[:-1, 0] * contour2[1:, 1] - contour2[1:, 0] * contour2[:-1, 1]))
 
@@ -22,8 +23,6 @@ def calculate_centroid(contour):
 	#print(contour)
 	# Calculate the centroid
 	centroid = np.mean(contour, axis=0).astype(int)
-
-	#print("hello",centroid)
 
 	return centroid
 
@@ -55,6 +54,7 @@ def rotate_contour_around_centroid(contour, angle_radians):
 	return rotated_contour
 
 def find_optimal_rotation(contour1, contour2):
+	# Find the optimal rotation angle that minimises the Mean Squared Error
 	best_rotation_angle = None
 	min_mse = float('inf')
 
