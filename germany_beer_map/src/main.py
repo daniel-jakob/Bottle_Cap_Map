@@ -1,6 +1,10 @@
 # main.py
 import cv2
 
+import sys
+import os
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..')))
+
 # Import necessary project modules
 from image_processing.image_preprocessor import ImageProcessor
 from image_processing.circle_detection import detect_circles
