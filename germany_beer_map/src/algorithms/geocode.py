@@ -24,9 +24,13 @@ def get_geocoordinates(address):
 
 	return None
 
-def convert_address_to_coords(csvfile):
+def convert_address_to_coords(csvfile=None, address=None):
 	# Read in bottle_caps.csv
-	bottle_caps = read_csv_file(csvfile)
+	if csvfile:
+		bottle_caps = read_csv_file(csvfile)
+
+	if address:
+		bottle_caps = [{'brewery_address': address}]
 
 	bottle_cap_coords = []
 
