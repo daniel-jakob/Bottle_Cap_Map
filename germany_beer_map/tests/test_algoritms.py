@@ -30,3 +30,13 @@ def test_calculate_mse():
     contour2 = np.array([[3, 3], [4, 4]])
     expected = 4.0
     assert calculate_mse(contour1, contour2) == expected
+
+def test_geocode():
+	# Test with a single address, Plenarbereich Reichstagsgebäude.
+	# Of known coordinates: 51.5186111, 13.3761111 (52°31′07″N 13°22′34″E)
+	address = "Platz der Republik 1, 11011 Berlin, Germany"
+	expected = (13.376296140954109, 52.518671200312156)
+	result = tuple(convert_address_to_coords(address=address)[-1])
+	print("result: ", *result, "expected: ", *expected)
+	# Check if the distance is within 50 meters
+	assert haversine(*expected, *result) * 1000 <= 50
