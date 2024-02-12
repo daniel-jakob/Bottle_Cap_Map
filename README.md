@@ -71,7 +71,7 @@ pip install -r requirements.txt
     conda deactivate
     ```
 
-### If looking to adapt for your own bottlecap map...
+### If looking to adapt for your own bottlecap map…
 
 You must take a photo of your map, ideally as similar as possible to the one I used (found in `germany_beer_map/data/images/map.jpg`). I suggest a high contrast background. Replace the aforementined file with your picture. Find a reference outline image of your country online and replace the `map_ref.jpg` file. Change the `None` in `picture_out_filename=None` in the `circles = detect_circles(...)` line in `main.py` to a chosen filename, for example: `"circles_put.png"` (with double quotes). Run the script and see if all of the circular hole cutouts of your map are detected. If not, play around with the `minRadius=...` and `maxRadius=...` parameters in `cv2.HoughCircles(...)` in the `src/image_processing/circle_detection.py` file. Once all circles are being detected, ensure that the outlines (contours) of both the photograph and reference image are being detected correctly, the detected outline can be outputted to an image file in a similar fashion to the circle detection, except for the `detect_outline(...)` lines.
 
